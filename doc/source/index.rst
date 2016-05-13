@@ -3,14 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-manila-specs Design Specifications
-==================================================
+Newton approved specs
+=====================
 
 .. toctree::
    :glob:
    :maxdepth: 2
 
-   specs/*
+   specs/newton/*
 
 
 manila-specs Repository Information
