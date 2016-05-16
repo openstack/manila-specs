@@ -149,6 +149,20 @@ additionaProperties should be False).
 Reuse of existing predefined parameter types such as regexps for
 passwords and user defined names is highly encouraged.
 
+Driver impact
+-------------
+
+Describe any changes to the syntax or behaviour of driver calls.  This includes
+but is not limited to changes to the ShareDriver class, as well as changes to
+ShareManager that invoke drivers differently or have different expectations of
+return values.
+
+* What allowance is made for gradual deprecation of removed/changed interfaces?
+
+* Is new documentation needed for driver authors?
+
+* Will drivers' tests need updating?
+
 Security impact
 ---------------
 
@@ -248,8 +262,11 @@ Developer impact
 Discuss things that will affect other developers working on OpenStack,
 such as:
 
-* If the blueprint proposes a change to the driver API, discussion of how
-  other volume drivers would implement the feature is required.
+* New dependencies in development environments
+* Changes to typical developer workflows
+* Changes that will require updates to CI
+* Changes to shared code that will require updates to other areas
+  of code outside this feature.
 
 
 Implementation
