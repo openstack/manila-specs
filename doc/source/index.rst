@@ -8,13 +8,13 @@ Newton approved specs
 
 .. toctree::
    :glob:
-   :maxdepth: 2
+   :maxdepth: 1
 
    specs/newton/*
 
 
 manila-specs Repository Information
-===================================================
+===================================
 
 .. toctree::
    :maxdepth: 2
