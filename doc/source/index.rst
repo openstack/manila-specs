@@ -12,21 +12,19 @@ Newton approved specs
 
    specs/newton/*
 
-
 manila-specs Repository Information
 ===================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    README <readme>
    contributing
+   Spec Template <specs/template>
 
 
 Indices and tables
 ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
