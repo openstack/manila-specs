@@ -59,15 +59,24 @@ process::
     Delete most recent snapshot
     Revert to most recent snapshot
 
-To keep the REST interface explicit, and to avoid a race condition where
-a snapshot-create and share-revert-to-snapshot operation were run in quick
-succession (leading to the user being surprised about which snapshot was
-restored), the manila community decided the interface will accept the ID of
+An early suggestion to keep the REST interface simple was to merely include the
+share ID and allow manila to determine the most recent snapshot, but that opens
+a potential concurrency bug. If two users call share-revert-to-snapshot and
+snapshot-create at the same time, the two calls race and one user could be
+surprised about which snapshot was used to revert the share. Similarly, if two
+users call share-revert-to-snapshot and snapshot-delete at the same time, the
+calls race and someone may be surprised when the share is reverted to an even
+earlier snapshot than expected (which is a form of data loss).
+
+To keep the REST interface explicit, and to avoid the race conditions described
+above, the manila community decided the interface will accept the ID of
 the snapshot to be restored. Manila will verify that the snapshot is the most
 recent one via the created_at field on the snapshot object, returning an error
 if not. At no time will manila delete any snapshots during the revert
 operation, and it will not operate on any snapshot other than the one
-specified in the REST call.
+specified in the REST call. Once user messages are available in manila, it
+would be helpful to include a message indicating that the snapshot restoration
+was successful.
 
 The share size might have changed after the snapshot to be restored was taken.
 The size of any share at the time it is snapshotted is stored in the DB in the
@@ -152,10 +161,10 @@ Driver impact
 
 There will be one new driver entry point to revert a share to a snapshot, and
 another to revert a replicated share to a snapshot.  Drivers may explicitly
-advertise support for the revert feature using the 'revert_to_snapshot' pool
-attribute, but the share manager will be able to discern that automatically
-as it already does for 'snapshot_support' by looking for the presence of the
-entry point(s).
+advertise support for the revert feature using the 'revert_to_snapshot_support'
+pool attribute, but the share manager will be able to discern that
+automatically as it already does for 'snapshot_support' by looking for the
+presence of the entry point(s).
 
 Security impact
 ---------------
@@ -187,8 +196,8 @@ of a share are taken in rapid succession, such as in automated tests.
 
 The community decided to place a share in a 'snapshotting' state while
 taking a snapshot in order to prevent multiple simultaneous snapshot
-operations. The revert-to-snapshot feature depends on this work being
-completed first.
+operations. Complete correctness of the revert-to-snapshot feature depends
+on this work being completed, although they could merge in any order.
 
 Also, determining which snapshot is the latest requires a database
 query that sorts by a timestamp (the created_at field on the snapshot object).
@@ -207,14 +216,15 @@ As with other snapshot semantics, including the ability to take a
 snapshot, a driver must advertise its ability to restore a snapshot.
 This will be done using the driver method discovery code that exists
 today to report the share revert capability to the scheduler.
-The new field shall be 'revert_to_snapshot'. It will also be reported
-as a public extra spec on the share type to enable user-facing tools
+The new field shall be 'revert_to_snapshot_support'. It will also be reported
+as an optional public extra spec on the share type to enable user-facing tools
 to selectively offer the feature on a per-snapshot basis, and the
 value will be copied from the share type to the share at the time of
 share creation.  Shares created before this feature is released will
 not have the attribute set, so the revert-to-snapshot action will not be
 available on those even if the backend support is present.  The default value
-of 'revert_to_snapshot' will be False.
+of 'revert_to_snapshot_support' on a share object will be False if the
+corresponding key is not set on the share type.
 
 Implementation
 ==============
@@ -229,8 +239,11 @@ Primary assignee:
 Other contributors:
 
 * vponomaryov (manila-ui)
-* TBD (1st-party drivers)
-* TBD (Functional & scenario tests)
+* bswartz (LVM driver)
+* TBD (generic driver)
+* vponomaryov (ZFS driver)
+* akerr (functional tests)
+* TBD (scenario tests)
 
 Work items
 ----------
@@ -241,7 +254,8 @@ Work items
   should become distributed locks once the Tooz adoption code is available.
 * Implement revert-to-snapshot command in python-manilaclient
 * Implement core feature
-* Implement revert-to-snapshot in at least one first-party driver
+* Implement revert-to-snapshot in at least one first-party driver, covering
+  both normal and replicated snapshots
 * Implement tempest support
 * Implement manila-ui support
 
@@ -260,8 +274,8 @@ Testing
 =======
 
 Tempest coverage may be added that checks for the existence of the
-'revert_to_snapshot' capability and exercises the corresponding API. Tests
-should include cases where the share size is changed after the original
+'revert_to_snapshot_support' capability and exercises the corresponding API.
+Tests should include cases where the share size is changed after the original
 snapshot is taken to ensure the share size and quotas are correct after the
 revert operation. Negative tests should include attempts to restore snapshots
 other than the most recent one.
@@ -274,8 +288,12 @@ is present in the share.
 Documentation impact
 ====================
 
-As a user-facing feature, this should be covered in the user guide.
-The manila devref must be updated to define the new revert_to_snapshot flag.
+* API Ref: Add content about the API.
+* User Guide: Add content about the revert feature and new public extra spec.
+* Admin Guide: Add content regarding the revert_to_snapshot_support common
+  capability.
+* Developer Ref: Add revert_to_snapshot_support to common capabilities
+  and the infamous driver matrix.
 
 References
 ==========
