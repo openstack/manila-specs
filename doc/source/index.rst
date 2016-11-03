@@ -1,7 +1,20 @@
-.. manila-specs documentation master file, created by
-   sphinx-quickstart on Tue Jul  9 22:26:36 2013.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. manila-specs
+
+==============================
+OpenStack Manila Project Plans
+==============================
+
+Priorities
+==========
+
+The team agrees to focus review attention on high priority specs starting in
+the Ocata release. The agreed upon specs are listed here:
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   priorities/*
 
 Newton approved specs
 =====================
@@ -12,19 +25,17 @@ Newton approved specs
 
    specs/newton/*
 
-manila-specs Repository Information
-===================================
+Specs Process and Repository Information
+========================================
 
 .. toctree::
    :maxdepth: 1
 
-   README <readme>
    contributing
+   Process and Deadlines for Specs <specs/specs_deadlines>
    Spec Template <specs/template>
-
 
 Indices and tables
 ==================
 
 * :ref:`search`
-
