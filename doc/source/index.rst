@@ -16,6 +16,15 @@ the Ocata release. The agreed upon specs are listed here:
 
    priorities/*
 
+Ocata approved specs
+====================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/ocata/*
+
 Newton approved specs
 =====================
 
