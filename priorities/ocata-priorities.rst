@@ -12,10 +12,12 @@ prioritizing in Ocata (in no particular order).
 +===========================================+=======================+
 | `Scenario Tests`_                         | `Valeriy Ponomaryov`_ |
 | `Eliminate Race Conditions`_              | `Ben Swartzlander`_   |
+| `Fix and improve Access Rules`_           | `Goutham Ravi`_       |
 +-------------------------------------------+-----------------------+
 
 .. _Valeriy Ponomaryov: https://launchpad.net/~vponomaryov
 .. _Ben Swartzlander: https://launchpad.net/~bswartz
+.. _Goutham Ravi: https://launchpad.net/~gouthamr
 
 Scenario Tests
 --------------
@@ -41,3 +43,11 @@ Race conditions are the cause of a lot of Manila's test instability. Fixing
 them in a way that works in a distributed active/active HA model is
 surprisingly hard, so we plan to implement some fixes that will be the model
 for solving race conditions in the future.
+
+Fix and improve Access Rules
+----------------------------
+
+Changes made to access rule management in the Mitaka release introduced some
+bugs caused by a combination of bad design choices and lack of a good way
+to prevent race conditions between state updates in the manager and the API.
+We plan to fix these problems once and for all in Ocata.
