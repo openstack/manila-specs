@@ -11,8 +11,11 @@ prioritizing in Ocata (in no particular order).
 | Priority                                  | Primary Contacts      |
 +===========================================+=======================+
 | `Scenario Tests`_                         | `Valeriy Ponomaryov`_ |
++-------------------------------------------+-----------------------+
 | `Eliminate Race Conditions`_              | `Ben Swartzlander`_   |
++-------------------------------------------+-----------------------+
 | `Fix and improve Access Rules`_           | `Goutham Ravi`_       |
++-------------------------------------------+-----------------------+
 | `Enable IPv6`_                            | `Jun Zhongjun`_       |
 +-------------------------------------------+-----------------------+
 
