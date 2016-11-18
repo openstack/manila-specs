@@ -11,9 +11,11 @@ prioritizing in Ocata (in no particular order).
 | Priority                                  | Primary Contacts      |
 +===========================================+=======================+
 | `Scenario Tests`_                         | `Valeriy Ponomaryov`_ |
+| `Eliminate Race Conditions`_              | `Ben Swartzlander`_   |
 +-------------------------------------------+-----------------------+
 
 .. _Valeriy Ponomaryov: https://launchpad.net/~vponomaryov
+.. _Ben Swartzlander: https://launchpad.net/~bswartz
 
 Scenario Tests
 --------------
@@ -31,3 +33,11 @@ that their drivers do indeed meet community standards.
 To address these two issues we plan to implement new scenario tests to
 address coverage gaps and also to request that 3rd party CI systems start
 running the scenario tests suite in addition to the functional test suite.
+
+Eliminate Race Conditions
+-------------------------
+
+Race conditions are the cause of a lot of Manila's test instability. Fixing
+them in a way that works in a distributed active/active HA model is
+surprisingly hard, so we plan to implement some fixes that will be the model
+for solving race conditions in the future.
