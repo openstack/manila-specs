@@ -16,6 +16,14 @@ the Ocata release. The agreed upon specs are listed here:
 
    priorities/*
 
+Pike approved specs
+===================
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/pike/*
+
 Ocata approved specs
 ====================
 
