@@ -33,19 +33,89 @@ Some notes about using this template:
 * To test out your formatting, build the docs using tox, or see:
   https://www.siafoo.net/reST.xml
 
-* If you would like to provide a diagram with your spec, ascii diagrams are
-  required.  http://asciiflow.com/ is a very nice tool to assist with making
-  ascii diagrams.  The reason for this is that the tool used to review specs is
-  based purely on plain text.  Plain text will allow review to proceed without
-  having to look at additional files which can not be viewed in gerrit.  It
-  will also allow inline feedback on the diagram itself.
-
 * If your specification proposes any changes to the Manila REST API such
   as changing parameters which can be returned or accepted, or even
   the semantics of what happens when a client calls into the API, then
   you should add the APIImpact flag to the commit message. Specifications with
   the APIImpact flag can be found with the following query:
   https://review.openstack.org/#/q/status:open+project:openstack/manila-specs+message:apiimpact,n,z
+
+* If you would like to provide a diagram with your spec, text
+  representations are preferred.  acsiiflow `[1]`_ and blockdiag `[2]`_
+  are good tools to assist with this.  Text representations are
+  preferred because the tool used to review specs is based
+  purely on plain text.  Plain text will allow review to proceed
+  without having to look at additional files which can not be viewed
+  in gerrit.  It will also allow inline feedback on the diagram
+  itself.
+
+* Diagram examples
+
+asciiflow::
+
+  +----------+     +-----------+        +----------+
+  | A        |     |  B        |        |  C       |
+  |          +-----+           +--------+          |
+  +----------+     +-----------+        +----------+
+
+blockdiag
+
+.. blockdiag::
+
+  blockdiag sample {
+    a -> b -> c;
+  }
+
+actdiag
+
+.. actdiag::
+
+   actdiag {
+     write -> convert -> image
+     lane user {
+       label = "User"
+       write [label = "Writing reST"];
+       image [label = "Get diagram IMAGE"];
+     }
+     lane actdiag {
+       convert [label = "Convert reST to Image"];
+     }
+   }
+
+nwdiag
+
+.. nwdiag::
+
+  nwdiag {
+    network dmz {
+      address = "210.x.x.x/24"
+
+      web01 [address = "210.x.x.1"];
+      web02 [address = "210.x.x.2"];
+    }
+    network internal {
+      address = "172.x.x.x/24";
+
+      web01 [address = "172.x.x.1"];
+      web02 [address = "172.x.x.2"];
+      db01;
+      db02;
+    }
+  }
+
+
+seqdiag
+
+.. seqdiag::
+
+  seqdiag {
+    browser  -> webserver [label = "GET /index.html"];
+    browser <-- webserver;
+    browser  -> webserver [label = "POST /blog/comment"];
+    webserver  -> database [label = "INSERT comment"];
+    webserver <-- database;
+    browser <-- webserver;
+  }
 
 
 Problem description
@@ -346,3 +416,8 @@ references are unavailable. Examples of what you could include are:
 * Related specifications as appropriate (e.g. link to any vendor documentation)
 
 * Anything else you feel it is worthwhile to refer to
+
+Diagram Tool References
+-----------------------
+* _`[1]` http://asciiflow.com
+* _`[2]` http://blockdiag.com

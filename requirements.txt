@@ -1,5 +1,13 @@
 pbr>=2.0.0
 
+actdiag
+blockdiag
+nwdiag
 oslosphinx>=4.7.0
+seqdiag
 sphinx>=1.5.1
+sphinxcontrib-actdiag
+sphinxcontrib-blockdiag # BSD
+sphinxcontrib-nwdiag
+sphinxcontrib-seqdiag # BSD
 yasfb>=0.6.1

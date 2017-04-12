@@ -24,6 +24,10 @@ sys.path.insert(0, os.path.abspath('../..'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.graphviz',
+    'sphinxcontrib.blockdiag',
+    'sphinxcontrib.actdiag',
+    'sphinxcontrib.seqdiag',
+    'sphinxcontrib.nwdiag',
     'oslosphinx',
     # TODO(tbarron): re-enable yasfb after
     # https://github.com/sphinxcontrib/yasfb/commit/62d18c66835320af4a71fb088cb502041478fb16
