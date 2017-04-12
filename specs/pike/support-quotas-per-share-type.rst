@@ -163,7 +163,7 @@ Old microversions will behave as did before.
   * Method: PUT
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
         {
             'quotas': {

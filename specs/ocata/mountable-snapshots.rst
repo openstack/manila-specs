@@ -121,7 +121,7 @@ URL: /snapshot-instances/<si-id>/export-locations/<el-id>
 Driver impact
 -------------
 
-Add driver interfaces:
+Add driver interfaces::
 
     def snapshot_allow_access(self, context, snapshot, access,
                               share_server=None):

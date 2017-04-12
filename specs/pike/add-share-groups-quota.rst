@@ -75,7 +75,7 @@ boolean value.
   * Method: PUT
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
         {
           'quotas': {

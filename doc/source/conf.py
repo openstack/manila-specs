@@ -25,7 +25,10 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.graphviz',
     'oslosphinx',
-    'yasfb',
+    # TODO(tbarron): re-enable yasfb after
+    # https://github.com/sphinxcontrib/yasfb/commit/62d18c66835320af4a71fb088cb502041478fb16
+    # is released; it currently breaks with python 3.5
+    #'yasfb',
 ]
 
 # Feed configuration for yasfb

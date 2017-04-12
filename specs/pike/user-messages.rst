@@ -155,8 +155,11 @@ message_map = {
     MessageIds.UNEXPECTED_NETWORK: _("Current back end configuration does not "
                                      "support creating shares within  project "
                                      "defined share-networks."),
+
     MessageIds.QUOTA_UPDATE: _("Failed to update quota.")
+
 }
+
 
 REST API impact
 ---------------
@@ -178,7 +181,7 @@ Message APIs:
 
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         "messages": [
@@ -204,7 +207,7 @@ Message APIs:
   * Method: GET (200, 403 Forbidden, 404 Not Found)
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         "message": {

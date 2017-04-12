@@ -4,9 +4,9 @@
 
  http://creativecommons.org/licenses/by/3.0/legalcode
 
-====================================================
+=====================================================
 Support retrieving shares filtered by export-location
-====================================================
+=====================================================
 
 https://blueprints.launchpad.net/manila/+spec/support-filter-share-by-export-location
 
@@ -88,8 +88,8 @@ Manila client will add a new parameter '--export_location <export-location>'
 to command 'list', the modified version of command will be like::
 
 * list --export_location <export-location> <other existing command arguments>
-* share-instance-list --export_location <export-location>
-                      <other existing command arguments>
+* share-instance-list --export_location <export-location> <other existing command arguments>
+
 
 Security impact
 ---------------

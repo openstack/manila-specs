@@ -319,7 +319,7 @@ Share group APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
         {
           'share_group': {
@@ -379,7 +379,7 @@ Share group APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'force_delete': None
@@ -394,7 +394,7 @@ Share group APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'reset_status': '%status%'
@@ -408,7 +408,7 @@ Share group APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'share_group': {
@@ -425,7 +425,7 @@ Share group snapshot APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
         {
           'share_group_snapshot': {
@@ -473,7 +473,7 @@ Share group snapshot APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'force_delete': None
@@ -488,7 +488,7 @@ Share group snapshot APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'reset_status': '%status%'
@@ -502,7 +502,7 @@ Share group snapshot APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'share_group_snapshot': {
@@ -520,7 +520,7 @@ Share group type APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'share_group_type': {
@@ -550,7 +550,7 @@ Share group type APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'group_specs': {
@@ -600,7 +600,7 @@ Share group type access APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'addProjectAccess': {
@@ -615,7 +615,7 @@ Share group type access APIs:
   * Method: POST
   * JSON body:
 
-    .. code-block:: json
+    .. code:: json
 
       {
         'removeProjectAccess': {
