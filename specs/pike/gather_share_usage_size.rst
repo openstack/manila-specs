@@ -40,8 +40,8 @@ Administrators and driver developers can "opt-in" to enable this feature
 in their drivers and in their clouds.
 
 Add notifiers for shares usage size we want to measure. Right now we intend
-to add notifiers to resouces (such as: shares, share groups, snapshots and
-etc) and publish the resouces we expect [1].
+to add notifiers to resources (such as: shares, share groups, snapshots and
+etc) and publish the resources we expect [1].
 
 The update_share_usage_size() driver method is a new driver method which will
 be called after driver initialization and in the periodic task, that returns a
