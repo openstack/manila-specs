@@ -54,9 +54,11 @@ Alternatives
 
 * Why we don't gather the space usage when we need to use it (such as: list,
   show APIs)?
+
   Because we could publish such real time information to ceilometer.
 
 * Why we don't store the space usage?
+
   Because we can't implement this inside manila without duplicating
   functionality already in other projects like ceilometer.
   It's a number that changes over time. If the number is too old, it might
