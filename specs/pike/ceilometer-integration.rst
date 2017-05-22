@@ -47,10 +47,10 @@ the available shares, that is, information like:
 * rops/s (number of read operations per second issued to the filesystem)
 * wops/s (number of write operations per second issued to the filesystem)
 
-The latter has been requested by users in the past `[0]`_.
+The latter has been requested by users in the past `[1]`_.
 
 For now, the community has shown interest on implementing
-the required logic to retrieve metrics for the resources in manila `[1]`_.
+the required logic to retrieve metrics for the resources in manila `[2]`_.
 And hence, this spec will focus on this.
 
 Depending on the project plans in the future, we will decide if it is
@@ -72,13 +72,13 @@ Proposed change
 The proposed change consists of the following
 
 * Add notifiers for all the resources we want to measure.
-  Right now we have notifiers in share_types.py `[2]`_ but this is
+  Right now we have notifiers in share_types.py `[3]`_ but this is
   a remainder of refactoring from cinder's volumes_types.py in previous versions.
   We would need to add notifiers to shares and snapshots,
   and check that the notifiers in share-types publish the data we expect.
 
 * Add meters in ceilometer for the desired resources.
-  For this, we would need to follow ceilometer's guidelines `[3]`_.
+  For this, we would need to follow ceilometer's guidelines `[4]`_.
   The resources we are considering in this spec are shares, share types
   and snapshots. Meters for other resources such as share groups will be
   added in follow up changes.
@@ -170,7 +170,7 @@ Work Items
 Dependencies
 ============
 
-The blueprint on the ceilometer side can be accessed in `[4]`_.
+The blueprint on the ceilometer side can be accessed in `[5]`_.
 We will add the desired meters as part of that blueprint.
 
 No other dependencies considered at the moment of writing.
@@ -200,12 +200,12 @@ on the operations manuals.
 References
 ==========
 
-.. _[0]: https://ask.openstack.org/en/question/58203/how-to-collect-telemetryceilometer-metrics-from-manila-file-share-service/
+* _`[1]` https://ask.openstack.org/en/question/58203/how-to-collect-telemetryceilometer-metrics-from-manila-file-share-service/
 
-.. _[1]: https://etherpad.openstack.org/p/manila-pike-ptg-thursday
+* _`[2]` https://etherpad.openstack.org/p/manila-pike-ptg-thursday
 
-.. _[2]: https://github.com/openstack/manila/commit/0cb695fd54f90a94fe185ff7e34ba0b175b6c75b#diff-1117d59ee7142c5324a3d327d39b3a0fR45
+* _`[3]` https://github.com/openstack/manila/commit/0cb695fd54f90a94fe185ff7e34ba0b175b6c75b#diff-1117d59ee7142c5324a3d327d39b3a0fR45
 
-.. _[3]: https://docs.openstack.org/developer/ceilometer/new_meters.html#add-new-meters
+* _`[4]` https://docs.openstack.org/developer/ceilometer/new_meters.html#add-new-meters
 
-.. _[4]: https://blueprints.launchpad.net/ceilometer/+spec/manila-meters
+* _`[5]` https://blueprints.launchpad.net/ceilometer/+spec/manila-meters
