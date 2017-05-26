@@ -90,54 +90,54 @@ Microversion bump is required for this change.
 * Add ``name~`` and ``description~`` parameter to list API
   interfaces. It means we can use this new parameter to inexact filtering::
 
-  List shares with share name
+    List shares with share name
 
-  GET /v2/<tenant_id>/shares?name~=test
+    GET /v2/<tenant_id>/shares?name~=test
 
-  Accept: application/json
+    Accept: application/json
 
-  JSON Response
+    JSON Response
 
-  {
-     "shares": [
+    {
+       "shares": [
+             {
+                "status": "available",
+                "export_location": %ip%:/opt/stack/data/manila/mnt/share-%share_id%,
+                "name": "test_1",
+                ...
+           },
            {
-              "status": "available",
-              "export_location": %ip%:/opt/stack/data/manila/mnt/share-%share_id%,
-              "name": "test_1",
-              ...
-         },
-         {
-              "status": "available",
-              "export_location": null,
-              "name": "2_test",
-              ...
-         }
-     ]
-  }
+                "status": "available",
+                "export_location": null,
+                "name": "2_test",
+                ...
+           }
+       ]
+    }
 
 
-List snapshot with share snapshot name
+    List snapshot with share snapshot name
 
-GET /v2/<tenant_id>/snapshots?name~=snap_test
+    GET /v2/<tenant_id>/snapshots?name~=snap_test
 
-Accept: application/json
+    Accept: application/json
 
-JSON Response
+    JSON Response
 
-{
-   "shares": [
-       {
-            "status": "available",
-            "name": "snap_test_1",
-            ...
-       },
-       {
-            "status": "available",
-            "name": "snap_test_xxxxx",
-            ...
-       }
-   ]
-}
+    {
+       "shares": [
+           {
+                "status": "available",
+                "name": "snap_test_1",
+                ...
+           },
+           {
+                "status": "available",
+                "name": "snap_test_xxxxx",
+                ...
+           }
+       ]
+    }
 
 Client impact
 -------------
@@ -145,7 +145,7 @@ Client impact
 The Manila client will add a new command argument '--name~'
 and '--description~' to 'list' to filter manila resource by inexact match::
 
-  manila list [--name~ <name~>] [--description~ <description~>]
+    manila list [--name~ <name~>] [--description~ <description~>]
 
 We assuming we have two shares in the name of'test_1', '2_test', usually we
 would get none of them if type this command::
