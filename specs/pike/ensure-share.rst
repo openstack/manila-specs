@@ -125,7 +125,7 @@ Add driver interfaces::
     def get_backend_info(self, context):
         """Get driver and array configuration parameters and return for
            assessment.
-        :return A dictionary containing driver-specific infos::
+        :return A dictionary containing driver-specific info::
              {
               'version': '2.23'
               'port': '80',
