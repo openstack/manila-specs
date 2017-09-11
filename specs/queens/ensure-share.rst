@@ -71,8 +71,10 @@ called after driver initialization but before ensure_shares, that returns a
 dictionary. Drivers will have complete control of the contents of the
 dictionary to be hashed. Driver can include any of the following:
 
-1. The ID of the most recent DB migration. Including this value guarantees
-   that ensure_shares will be called after DB schema changes.
+1. The ID of the most recent DB migration. The manager will add new
+   ``get_recent_db_migration_id`` interface to supply this value to the
+   driver. Then this value guarantees that ensure_shares will be called
+   after DB schema changes.
 2. Any of the keys and values in the oslo config object. Including these
    values guarantees that ensure_shares is called whenever the config file
    changes in a way that impacts the driver.
@@ -224,8 +226,7 @@ Primary assignee:
 Work items
 ----------
 
-* Implement the core feature with functional tempest and scenario test
-  coverage
+* Implement the core feature with unit tests
 * Convert all ensure_share() methods to ensure_shares()
 * Implement get_backend_info() in first party drivers.
 * Add documentation of this feature
