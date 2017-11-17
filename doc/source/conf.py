@@ -32,7 +32,7 @@ extensions = [
     # TODO(tbarron): re-enable yasfb after
     # https://github.com/sphinxcontrib/yasfb/commit/62d18c66835320af4a71fb088cb502041478fb16
     # is released; it currently breaks with python 3.5
-    #'yasfb',
+    # 'yasfb',
 ]
 
 # Feed configuration for yasfb
@@ -42,14 +42,6 @@ feed_author = 'OpenStack Manila Team'
 exclude_patterns = [
     'template.rst',
 ]
-
-# Optionally allow the use of sphinxcontrib.spelling to verify the
-# spelling of the documents.
-try:
-    import sphinxcontrib.spelling
-    extensions.append('sphinxcontrib.spelling')
-except ImportError:
-    pass
 
 # autodoc generation is a bit aggressive and a nuisance when doing heavy
 # text edit cycles.
@@ -97,4 +89,4 @@ latex_documents = [
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
-#intersphinx_mapping = {'http://docs.python.org/': None}
+# intersphinx_mapping = {'http://docs.python.org/': None}
