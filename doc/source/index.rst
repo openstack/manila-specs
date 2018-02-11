@@ -16,6 +16,14 @@ the Ocata release. The agreed upon specs are listed here:
 
    priorities/*
 
+Rocky approved specs
+=====================
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/rocky/*
+
 Queens approved specs
 =====================
 .. toctree::
