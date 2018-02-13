@@ -48,7 +48,7 @@ Operators should have the ability to purge deleted rows, possibly on a
 schedule (cron job) or as needed (Before an upgrade, prior to maintenance).
 The intended use would be to specify a number of days prior to today for
 deletion, e.g. "manila-manage db purge 10" would purge deleted rows that
-have the “deleted_at” column greater than 10 days ago
+have the "deleted_at" column greater than 10 days ago
 
 Proposed change
 ===============
