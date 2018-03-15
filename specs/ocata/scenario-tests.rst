@@ -48,12 +48,12 @@ Prerequisites for scenarios:
 
 * Depending on share driver mode, it can be required to create share-network
   with or without security-services.
-* Depending on protocol, its versions and access type, “mount” operations
+* Depending on protocol, its versions and access type, "mount" operations
   should be defined explicitly. Scenario tests assume it as predefined
   and known. Hence, scenarios do not include difference between
   access type (IP, User, Cert). Due to this, scenario tests should be
-  data driven by “access_type”, “access_proto”, “access_level” and
-  “mount command with all expected options”.
+  data driven by "access_type", "access_proto", "access_level" and
+  "mount command with all expected options".
 * **Bold texts** depend on specific implementations and
   can be unsupported by share backends.
 * Text in brackets depend on share driver configuration and may be optional.
@@ -268,13 +268,13 @@ _`3) Relationships between source shares and child shares`
      - Try mount S1 to UVM
      - ok, mounted
    * - 6
-     - Create “file1”
+     - Create "file1"
      - ok, created
    * - 7
      - Create snapshot SS1 from S1
      - ok, created
    * - 8
-     - Create “file2” in share S1
+     - Create "file2" in share S1
      - ok, created. We expect that snapshot will not contain any data created
        after snapshot creation.
    * - 9
@@ -292,16 +292,16 @@ _`3) Relationships between source shares and child shares`
      - ok, mounted
    * - 13
      - List files on S2
-     - only “file1” exists
+     - only "file1" exists
    * - 14
      - Create file3 on S2
      - ok, file created
    * - 15
      - List files on S1
-     - two files exist - “file1” and “file2”
+     - two files exist - "file1" and "file2"
    * - 16
      - List files on S2
-     - two files exist - “file1” and “file3”
+     - two files exist - "file1" and "file3"
    * - 17
      - Unmount S1 and S2
      - ok, unmounted
@@ -348,7 +348,7 @@ _`4) Create/extend share and write data`
      - Try mount S1 to UVM
      - ok, mounted
    * - 6
-     - Create “file1”
+     - Create "file1"
      - ok, created
    * - 7
      - Fill file1 with data as possible
@@ -968,10 +968,10 @@ _`12) Migrate share and write data`
      - Unmount share S1
      - ok, unmounted
    * - 8
-     - Do “migration-start”
+     - Do "migration-start"
      - ok, finished. 1 phase is completed.
    * - 9
-     - Do “migration-complete”
+     - Do "migration-complete"
      - ok, share instance only one - new one. it has previously created file1.
    * - 10
      - Try mount S1 to UVM

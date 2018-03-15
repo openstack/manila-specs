@@ -82,11 +82,11 @@ To reuse the feature, the vnic_type must be set to ``baremetal`` during
 port creation. Furthermore it's needed to add some network information to the
 port create, like::
 
-    “binding:profile”: {
-        “local_link_information”: [{
-            “switch_id”: 00-12-ff-e1-0d,
-            “port_id”: dd013:12:33:4,
-            “switch_info”: {“switch_ip“: "10.0.0.1}
+    "binding:profile": {
+        "local_link_information": [{
+            "switch_id": 00-12-ff-e1-0d,
+            "port_id": dd013:12:33:4,
+            "switch_info": {"switch_ip": 10.0.0.1}
         }]
     }
 
