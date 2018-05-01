@@ -16,6 +16,18 @@ the Ocata release. The agreed upon specs are listed here:
 
    priorities/*
 
+
+Release Independent specs
+=========================
+
+These specifications can be implemented over multiple releases.
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/release_independent/*
+
 Rocky approved specs
 =====================
 .. toctree::

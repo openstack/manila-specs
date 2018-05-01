@@ -586,10 +586,11 @@ _`7) Create/manage share and snapshot and write data`
      - Delete share S1
      - ok, deleted
    * - 18
-     - Try manage share S1 again
-     - fail, resource not found
+     - Try manage share S1 again as S2, this should fail asynchronously
+       since the resource is gone
+     - S2 has a status set to 'error'
    * - 19
-     - Delete S1
+     - Delete S2
      - ok, deleted
    * - 20
      - Delete UVM
@@ -1045,13 +1046,16 @@ Implementation
 Assignee(s)
 -----------
 
-Primary assignee:
+Original assignee:
 
 * vponomaryov
 
 Other contributors:
 
-* TBD
+* We're inviting more contributors to continue to improve scenario tests.
+  Adding new scenario test cases to manila-tempest-plugin does *not* require
+  adding the test case description to this spec, but it is encouraged if you
+  like feedback for your new test cases.
 
 Work Items
 ----------
