@@ -41,7 +41,7 @@ Proposed change
 ===============
 
 One possible way to validate the Manila API is to use jsonschema similar to
-Nova, Cinder, Keystone and Glance (https://pypi.python.org/pypi/jsonschema).
+Nova, Cinder, Keystone and Glance (https://pypi.python.org/project/jsonschema).
 A jsonschema validator object can be used to check each resource against an
 appropriate schema for that resource. If the validation passes, the request
 can follow the existing flow of control through the resource manager to the
@@ -344,7 +344,7 @@ References
 
 * JSON Schema on PyPI:
 
-  https://pypi.python.org/pypi/jsonschema
+  https://pypi.python.org/project/jsonschema
 
 * JSON Schema core definitions and terminology:
 
