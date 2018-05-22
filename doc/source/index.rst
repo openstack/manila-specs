@@ -4,19 +4,6 @@
 OpenStack Manila Project Plans
 ==============================
 
-Priorities
-==========
-
-The team agrees to focus review attention on high priority specs starting in
-the Ocata release. The agreed upon specs are listed here:
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   priorities/*
-
-
 Release Independent specs
 =========================
 
