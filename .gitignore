@@ -34,3 +34,6 @@ ChangeLog
 # Editors
 *~
 .*.swp
+
+# PyCharm IDE
+.idea/
