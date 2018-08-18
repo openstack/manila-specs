@@ -2,8 +2,8 @@
 Team and repository tags
 ========================
 
-.. image:: https://governance.openstack.org/badges/manila-specs.svg
-    :target: https://governance.openstack.org/reference/tags/index.html
+.. image:: https://governance.openstack.org/tc/badges/manila-specs.svg
+    :target: https://governance.openstack.org/tc/reference/tags/index.html
 
 .. Change things from this point on
 
@@ -34,7 +34,7 @@ Prior to the Newton development cycle, this repository was not used for spec
 reviews.  Reviews prior to Newton were completed entirely informally using wiki
 pages linked from blueprints::
 
-  http://blueprints.launchpad.net/manila
+  https://blueprints.launchpad.net/manila
 
 Please note, Launchpad blueprints are still used for tracking the
 current status of blueprints. For more information, see::
@@ -43,7 +43,7 @@ current status of blueprints. For more information, see::
 
 For more information about working with gerrit, see::
 
-  http://docs.openstack.org/infra/manual/developers.html#development-workflow
+  https://docs.openstack.org/infra/manual/developers.html#development-workflow
 
 To validate that the specification is syntactically correct (i.e. get more
 confidence in the Jenkins result), please execute the following command::
