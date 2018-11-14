@@ -15,6 +15,15 @@ These specifications can be implemented over multiple releases.
 
    specs/release_independent/*
 
+Train approved specs
+====================
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/train/*
+
+
 Stein approved specs
 ====================
 .. toctree::
