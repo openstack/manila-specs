@@ -90,7 +90,7 @@ Use Cases
   there is a very plausible chance that they mean for their mirrors (share
   replicas) or migration targets (share instances) to be on different subnets.
 
-  At the same time, there is a possibility that deployers would chose to
+  At the same time, there is a possibility that deployers would choose to
   make giant subnets that span all the availability zones.
 
 - Share servers in manila consume network allocations from a subnet. For
@@ -204,7 +204,7 @@ object and the specific subnet is chosen in association with the AZ provided.
     ``share_network_id`` as an optional parameter. This parameter will be
     removed to support this workflow. Since there are no share drivers that
     work in ``DHSS = True`` mode and support share replication, we can
-    remove this unused parameter. See associated launchpad bug [6].
+    remove this unused parameter. See associated launchpad bug [5].
 
 **Assigning a security service**
 
@@ -250,8 +250,8 @@ document) and foreign keys, ``availability_zone_id`` and
 exactly one share network and one availability zone.
 
 The ``manila.db.sqlalchemy.models.ShareServer`` model will stop having a
-foreign key binding to ``share_network_id`` and switch to having a foreign
-key reference to ``share_network_subnet_id`` instead.
+foreign key binding to ``share_network_id`` and switch to having a
+foreign key reference to ``share_network_subnet_id`` instead.
 
 No key changes are going to be made to
 ``manila.db.sqlalchemy.models.ShareNetworkSecurityServiceAssociation``,
@@ -293,6 +293,8 @@ Request::
     }
 
 Subnet details ``neutron_net_id`` and ``neutron_subnet_id`` are optional.
+Although, whenever one of them is specified, both must to be specified,
+otherwise the API will respond with ``400 Bad Request``.
 
 ``availability_zone`` is optional if one of the following conditions are
 met:
@@ -577,9 +579,9 @@ They can also define a subnet that can span all availability zones.
 Notifications impact
 --------------------
 
-None until [5] merges and is fully supported in manila. The work to add
-user messages will be proposed with a new blueprint and not part of this work.
-
+We will asynchronously validate the network information during share creation,
+and if there is a mismatch with what is specified in the configured network
+plugin, we will raise an error user message.
 
 Other end user impact
 ---------------------
@@ -602,12 +604,6 @@ expected to cause a performance impact, but will keep our existing share
 network validation isolated from the API allowing for further enhancements
 instead of gating changes at the API layer.
 
-There is no end user notification today when the creation of a share fails
-because network information in the share network is not valid. The share is
-set to ``error`` state and the failure is logged in the share manager logs.
-If and when the asynchronous user messages feature [5] is
-available in manila, we can enhance the share network validation.
-
 In other words, to minimize the performance impact, no further validation of
 network information at the API is recommended by the design introduced in
 this spec.
@@ -621,8 +617,9 @@ Other deployer impact
   availability_zone_hints. Deployers must ensure that neutron services are
   running in the desired availability_zones to allow for the network creation
   to succeed.
-* All existing share networks will be assigned the default availability zone
-  during the database upgrade to this version of the database changes.
+* All existing share networks will have their subnet (if existing) designated
+  as ``default`` after the database upgrade to this version of the
+  database changes.
 
 Developer impact
 ----------------
@@ -643,11 +640,8 @@ Assignee(s)
 -----------
 
 Primary assignee:
-  | gouthamr
+  | ganso
 
-Other contributors:
-  | yogesh
-  | bswartz
 
 Work Items
 ----------
@@ -661,17 +655,11 @@ Work Items
 Dependencies
 ============
 
-``nova-network`` has officially been deprecated [7] in the Newton release.
-We have proposed [8] to stop supporting it in Newton. This spec hides the
-fact that ``nova-network`` is currently a supported way of creating a share
-network. Regardless of how we decide to remove ``nova-network``, this work
-can progress in parallel.
-
 The evolution of share replication to cover the ``DHSS = True`` use case is
 dependant on this change. Once this work is completed, share drivers that
 support ``DHSS = True`` mode can support share replication. As a
 pre-requisite correction, the Share replica API should no longer support
-specifying the ``share_network_id``. [6]
+specifying the ``share_network_id``. [5]
 
 Testing
 =======
@@ -711,10 +699,4 @@ References
 
 [4]: http://docs.openstack.org/mitaka/networking-guide/adv-config-availability-zone.html
 
-[5]: https://blueprints.launchpad.net/manila/+spec/user-messages
-
-[6]: https://bugs.launchpad.net/manila/+bug/1588144
-
-[7]: https://review.openstack.org/#/c/310539/
-
-[8]: http://lists.openstack.org/pipermail/openstack-dev/2016-June/096517.html
+[5]: https://bugs.launchpad.net/manila/+bug/1588144
