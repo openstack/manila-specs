@@ -314,9 +314,9 @@ These tests should walk through invalid request types.
 
 We can follow some of the validation work already done in the Nova V3 API:
 
-* `Validation Testing <http://git.openstack.org/cgit/openstack/tempest/tree/etc/schemas/compute/flavors/flavors_list.json?id=24eb89cd3efd9e9873c78aacde804870962ddcbb>`_
+* `Validation Testing <https://opendev.org/openstack/tempest/src/commit/24eb89cd3efd9e9873c78aacde804870962ddcbb/etc/schemas/compute/flavors/flavors_list.json>`_
 
-* `Negative Validation Testing <http://git.openstack.org/cgit/openstack/tempest/tree/tempest/api/compute/flavors/test_flavors_negative.py?id=b2978da5ab52e461b06a650e038df52e6ceb5cd6>`_
+* `Negative Validation Testing <https://opendev.org/openstack/tempest/src/commit/b2978da5ab52e461b06a650e038df52e6ceb5cd6/tempest/api/compute/flavors/test_flavors_negative.py>`_
 
 Negative validation tests should use tempest.test.NegativeAutoTest
 
@@ -336,11 +336,11 @@ References
 
 * Understanding JSON Schema:
 
-  http://spacetelescope.github.io/understanding-json-schema/reference/object.html
+  https://json-schema.org/understanding-json-schema/index.html
 
 * Nova Validation Examples:
 
-  http://git.openstack.org/cgit/openstack/nova/tree/nova/api/validation
+  https://opendev.org/openstack/nova/src/branch/master/nova/api/validation
 
 * JSON Schema on PyPI:
 
@@ -348,8 +348,8 @@ References
 
 * JSON Schema core definitions and terminology:
 
-  http://tools.ietf.org/html/draft-zyp-json-schema-04
+  https://tools.ietf.org/html/draft-zyp-json-schema-04
 
 * JSON Schema Documentation:
 
-  http://json-schema.org/documentation.html
+  https://json-schema.org/specification.html
