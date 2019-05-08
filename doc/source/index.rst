@@ -75,6 +75,23 @@ Newton approved specs
 
    specs/newton/*
 
+Unimplemented specs
+===================
+
+These specifications are design ideas that were proposed
+and accepted, but have not been implemented in the cycle
+that they were targeted for. The original assignee/s
+may have stepped away. New contributors are welcome to
+pick any of these up and complete them. Please contact the
+original assignee or ask on freenode's #openstack-manila
+channel to proceed.
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/unimplemented/*
+
 Specs Process and Repository Information
 ========================================
 
