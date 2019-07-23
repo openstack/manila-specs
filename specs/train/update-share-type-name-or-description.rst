@@ -32,6 +32,8 @@ and do not have to create a new one.
 
 Proposed change
 ===============
+Add a new microversion to the share type API.
+
 Add a new function API to the **Share types**.
 
 * Add a update share-type API, available in a new micro version of
