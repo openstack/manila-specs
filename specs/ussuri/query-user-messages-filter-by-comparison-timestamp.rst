@@ -69,6 +69,13 @@ API to keep forward compatibility.
 
 * GET /v2/{project_id}/messages?created_since=2019-11-01T01:00:00&created_before=2019-11-02T01:00:00
 
+The time format is ISO 8601, it can be as follows:
+
+* 2019-11-01
+* 2019-11-01T01:00
+* 2019-11-01T01:00:00Z
+* 2019-11-01T01:00:00+05:00
+
 Security impact
 ---------------
 
@@ -90,7 +97,7 @@ One command will be updated::
                       [--level <level>] [--limit <limit>]
                       [--offset <offset>] [--sort-key <sort_key>]
                       [--sort-dir <sort_dir>] [--columns <columns>]
-                      [--create-before <b_time>] [--create-since <s_time>]
+                      [--created-before <b_time>] [--created-since <s_time>]
 
 
 Python client may add help to inform users this new filter, and will update
