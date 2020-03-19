@@ -15,6 +15,16 @@ These specifications can be implemented over multiple releases.
 
    specs/release_independent/*
 
+
+Ussuri approved specs
+=====================
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/ussuri/*
+
+
 Train approved specs
 ====================
 .. toctree::
