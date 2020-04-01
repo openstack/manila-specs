@@ -97,7 +97,7 @@ One command will be updated::
                       [--level <level>] [--limit <limit>]
                       [--offset <offset>] [--sort-key <sort_key>]
                       [--sort-dir <sort_dir>] [--columns <columns>]
-                      [--created-before <b_time>] [--created-since <s_time>]
+                      [--before <b_time>] [--since <s_time>]
 
 
 Python client may add help to inform users this new filter, and will update
