@@ -65,18 +65,18 @@ Prerequisites for scenarios:
 
 Here is list of scenarios for implementation:
 
-* `1) Share access and file operations`_
-* `2) Share access with multiple guests`_
-* `3) Relationships between source shares and child shares`_
-* `4) Create/extend share and write data`_
-* `5) Create/shrink share and write data`_
-* `6) Create/manage share and write data`_
-* `7) Create/manage share and snapshot and write data`_
-* `8) Replicate ‘writable’ share and write data`_
-* `9) Replicate and promote ‘readable’ share and write data`_
-* `10) Replicate and promote ‘dr’ share and write data`_
-* `11) Get a snapshot of a replicated share`_
-* `12) Migrate share and write data`_
+* `1) Share access and file operations`_ `(Partially implemented)`
+* `2) Share access with multiple guests`_ `(Partially implemented)`
+* `3) Relationships between source shares and child shares`_ `(Implemented)`
+* `4) Create/extend share and write data`_ `(Implemented)`
+* `5) Create/shrink share and write data`_ `(Implemented)`
+* `6) Create/manage share and write data`_ `(Implemented)`
+* `7) Create/manage share and snapshot and write data`_ `(Partially implemented)`
+* `8) Replicate ‘writable’ share and write data`_ `(Not yet implemented)`
+* `9) Replicate and promote ‘readable’ share and write data`_ `(Not yet implemented)`
+* `10) Replicate and promote ‘dr’ share and write data`_ `(Not yet implemented)`
+* `11) Get a snapshot of a replicated share`_ `(Not yet implemented)`
+* `12) Migrate share and write data`_ `(Implemented)`
 
 _`1) Share access and file operations`
 
@@ -90,6 +90,17 @@ _`1) Share access and file operations`
 * allow share access
 * deny share access
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case extends `manila_tempest_tests.tests.scenario
+    .test_share_basic_ops.ShareBasicOpsBase#test_write_with_ro_access
+    <https://opendev
+    .org/openstack/manila-tempest-plugin/src/commit
+    /eff4f9b87f0d36e0cfa4b1d861125f456f341af9/manila_tempest_tests/tests
+    /scenario/test_share_basic_ops.py#L117>`_
 
 .. list-table:: **Scenario 1 steps**
    :class: table-striped
@@ -170,6 +181,18 @@ _`2) Share access with multiple guests`
 * allow share access
 * delete share
 
+.. note::
+
+    **Implementation Status**
+
+    This test case extends `manila_tempest_tests.tests.scenario
+    .test_share_basic_ops.ShareBasicOpsBase#test_read_write_two_vms
+    <https://opendev
+    .org/openstack/manila-tempest-plugin/src/commit
+    /eff4f9b87f0d36e0cfa4b1d861125f456f341af9/manila_tempest_tests/tests
+    /scenario/test_share_basic_ops.py#L148>`_
+
+
 .. list-table:: **Scenario 2 steps**
    :stub-columns: 1
    :widths: 3 25 25
@@ -243,6 +266,19 @@ _`3) Relationships between source shares and child shares`
 * create share snapshot
 * delete share snapshot
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case has been implemented as `manila_tempest_tests.tests
+    .scenario.test_share_basic_ops
+    .ShareBasicOpsBase#test_write_data_to_share_created_from_snapshot
+    <https://opendev
+    .org/openstack/manila-tempest-plugin/src/commit
+    /eff4f9b87f0d36e0cfa4b1d861125f456f341af9/manila_tempest_tests/tests
+    /scenario/test_share_basic_ops.py#L291>`_
+
 
 .. list-table:: **Scenario 3 steps**
    :stub-columns: 1
@@ -322,6 +358,17 @@ _`4) Create/extend share and write data`
 * extend share
 * delete share
 
+.. note::
+
+    **Implementation Status**
+
+    This test case has been implemented as `manila_tempest_tests.tests
+    .scenario.test_share_extend.ShareExtendBase#test_create_extend_and_write
+    <https://opendev
+    .org/openstack/manila-tempest-plugin/src/commit
+    /eff4f9b87f0d36e0cfa4b1d861125f456f341af9/manila_tempest_tests/tests
+    /scenario/test_share_extend.py#L49>`_
+
 .. list-table:: **Scenario 4 steps**
    :class: table-striped
    :stub-columns: 1
@@ -383,6 +430,17 @@ _`5) Create/shrink share and write data`
 * **shrink share**
 * delete share
 
+.. note::
+
+    **Implementation Status**
+
+    This test case has been implemented as `manila_tempest_tests.tests
+    .scenario.test_share_shrink.ShareShrinkBase#test_create_shrink_and_write
+    <https://opendev
+    .org/openstack/manila-tempest-plugin/src/commit
+    /eff4f9b87f0d36e0cfa4b1d861125f456f341af9/manila_tempest_tests/tests
+    /scenario/test_share_shrink.py#L52>`_
+
 .. list-table:: **Scenario 5 steps**
    :class: table-striped
    :stub-columns: 1
@@ -437,16 +495,36 @@ _`5) Create/shrink share and write data`
 
 _`6) Create/manage share and write data`
 
-`Driver mode: DHSS=False only`
+`Driver mode: any`
 
 `Involved APIs:`
 
+* [create share network]
 * [create share type]
 * create share
 * allow share access
 * **manage share**
 * **unmanage share**
+* **manage share again**
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case has been partially implemented as `manila_tempest_tests
+    .tests.scenario.test_share_manage_unmanage
+    .ShareManageUnmanageBase#test_create_manage_and_write
+    <https://opendev
+    .org/openstack/manila-tempest-plugin/src/commit
+    /eff4f9b87f0d36e0cfa4b1d861125f456f341af9/manila_tempest_tests/tests
+    /scenario/test_share_manage_unmanage.py#L60>`_ . It currently tests only
+    ``DHSS=False`` back end share drivers. To complete the implementation,
+    this test case needs to support ``DHSS=True`` mode of share drivers.
+    Support for managing shares with DHSS=True was added to Manila via API
+    version 2.49. So this test must create a share network if
+    ``[share]/multitenancy_enabled=True`` and the API version being tested
+    is >= 2.49, and manage the share into the specific share network.
 
 .. list-table:: **Scenario 6 steps**
    :class: table-striped
@@ -509,10 +587,11 @@ _`6) Create/manage share and write data`
 
 _`7) Create/manage share and snapshot and write data`
 
-`Driver mode: DHSS=False only`
+`Driver mode: any`
 
 `Involved APIs:`
 
+* [create share network]
 * [create share type]
 * create share
 * allow share access
@@ -523,6 +602,12 @@ _`7) Create/manage share and snapshot and write data`
 * **unmanage snapshot**
 * **delete snapshot**
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case is yet to be implemented.
 
 .. list-table:: **Scenario 7 steps**
    :class: table-striped
@@ -598,16 +683,24 @@ _`7) Create/manage share and snapshot and write data`
 
 _`8) Replicate ‘writable’ share and write data`
 
-`Driver mode: DHSS=false only`
+`Driver mode: any`
 
 `Involved APIs:`
 
+* [create share network]
+* [create share network subnets in different availability zones]
 * [create share type]
 * create share
 * allow share access
 * **create replica**
 * **delete replica**
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case is yet to be implemented.
 
 .. list-table:: **Scenario 8 steps**
    :class: table-striped
@@ -676,10 +769,12 @@ _`8) Replicate ‘writable’ share and write data`
 
 _`9) Replicate and promote ‘readable’ share and write data`
 
-`Driver mode: DHSS=false only`
+`Driver mode: any`
 
 `Involved APIs:`
 
+* [create share network]
+* [create share network subnets in different availability zones]
 * [create share type]
 * create share
 * allow share access
@@ -687,6 +782,12 @@ _`9) Replicate and promote ‘readable’ share and write data`
 * **promote replica**
 * **delete replica**
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case is yet to be implemented.
 
 .. list-table:: **Scenario 9 steps**
    :class: table-striped
@@ -764,10 +865,12 @@ _`9) Replicate and promote ‘readable’ share and write data`
 
 _`10) Replicate and promote ‘dr’ share and write data`
 
-`Driver mode: DHSS=false only`
+`Driver mode: any`
 
 `Involved APIs:`
 
+* [create share network]
+* [create share network subnets in different availability zones]
 * [create share type]
 * create share
 * allow share access
@@ -775,6 +878,12 @@ _`10) Replicate and promote ‘dr’ share and write data`
 * **promote replica**
 * **delete replica**
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case is yet to be implemented.
 
 .. list-table:: **Scenario 10 steps**
    :class: table-striped
@@ -839,10 +948,12 @@ _`10) Replicate and promote ‘dr’ share and write data`
 
 _`11) Get a snapshot of a replicated share`
 
-`Driver mode: DHSS=false only`
+`Driver mode: any`
 
 `Involved APIs:`
 
+* [create share network]
+* [create share network subnets in different availability zones]
 * [create share type]
 * create share
 * allow share access
@@ -853,6 +964,12 @@ _`11) Get a snapshot of a replicated share`
 * **delete replica**
 * **delete snapshot**
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case is yet to be implemented.
 
 .. list-table:: **Scenario 11 steps**
    :class: table-striped
@@ -937,6 +1054,17 @@ _`12) Migrate share and write data`
 * **migration-start share**
 * **migration-complete share**
 * delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case has been implemented as `manila_tempest_tests.tests
+    .scenario.test_share_basic_ops.ShareBasicOpsBase#test_migration_files
+    <https://opendev
+    .org/openstack/manila-tempest-plugin/src/commit
+    /eff4f9b87f0d36e0cfa4b1d861125f456f341af9/manila_tempest_tests/tests
+    /scenario/test_share_basic_ops.py#L186>`_
 
 .. list-table:: **Scenario 12 steps**
    :class: table-striped
