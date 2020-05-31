@@ -29,14 +29,11 @@ extensions = [
     'sphinxcontrib.seqdiag',
     'sphinxcontrib.nwdiag',
     'openstackdocstheme',
-    # TODO(tbarron): re-enable yasfb after
-    # https://github.com/sphinxcontrib/yasfb/commit/62d18c66835320af4a71fb088cb502041478fb16
-    # is released; it currently breaks with python 3.5
-    # 'yasfb',
+    'yasfb',
 ]
 
 # Feed configuration for yasfb
-feed_base_url = 'http://specs.openstack.org/openstack/manila-specs'
+feed_base_url = 'https://specs.openstack.org/openstack/manila-specs'
 feed_author = 'OpenStack Manila Team'
 
 exclude_patterns = [
@@ -65,7 +62,7 @@ add_function_parentheses = True
 add_module_names = True
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = 'native'
 
 # -- Options for HTML output --------------------------------------------------
 
@@ -77,10 +74,6 @@ html_theme = 'openstackdocs'
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = '%sdoc' % project
-
-# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
-# using the given strftime format.
-html_last_updated_fmt = '%Y-%m-%d %H:%M'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass
@@ -95,6 +88,6 @@ latex_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 # intersphinx_mapping = {'http://docs.python.org/': None}
 
-repository_name = 'openstack/manila-specs'
-bug_project = 'manila'
-bug_tag = ''
+openstackdocs_repo_name = 'openstack/manila-specs'
+openstackdocs_bug_project = 'manila'
+openstackdocs_bug_tag = ''

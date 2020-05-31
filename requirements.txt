@@ -3,9 +3,9 @@ pbr>=2.0.0
 actdiag
 blockdiag
 nwdiag
-openstackdocstheme>=1.18.1 # Apache-2.0
+openstackdocstheme>=2.2.1 # Apache-2.0
 seqdiag
-sphinx>=1.5.1,!=1.6.1  # BSD
+sphinx>=2.0.0,!=2.1.0 # BSD
 sphinxcontrib-actdiag
 sphinxcontrib-blockdiag # BSD
 sphinxcontrib-nwdiag
