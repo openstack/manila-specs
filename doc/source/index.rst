@@ -15,6 +15,14 @@ These specifications can be implemented over multiple releases.
 
    specs/release_independent/*
 
+Victoria approved specs
+=======================
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/victoria/*
+
 
 Ussuri approved specs
 =====================
