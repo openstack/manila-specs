@@ -15,6 +15,15 @@ These specifications can be implemented over multiple releases.
 
    specs/release_independent/*
 
+Wallaby approved specs
+======================
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/wallaby/*
+
+
 Victoria approved specs
 =======================
 .. toctree::
