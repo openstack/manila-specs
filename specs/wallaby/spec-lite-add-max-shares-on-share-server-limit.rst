@@ -72,6 +72,7 @@ Spec Lite: Add new share server limits
 
 :link: https://etherpad.opendev.org/p/victoria-ptg-manila
        https://review.opendev.org/#/c/510542/
+       https://blueprints.launchpad.net/manila/+spec/new-share-server-limits
 
 :assignee: carloss
 
