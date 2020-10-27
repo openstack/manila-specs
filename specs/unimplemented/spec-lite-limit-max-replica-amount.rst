@@ -50,6 +50,9 @@ Spec Lite: Limit number of allowed replicas per share
            intervention, since the database migration script will update all
            the share types with a default value, and it may block users while
            creating new share replicas after migrating the database.
+           It is not currently possible to set per-share replica limits as
+           proposed in this specification, but the manila project quota
+           controls can be applied to share replicas since Ussuri release.
 
 :impacts:
 
