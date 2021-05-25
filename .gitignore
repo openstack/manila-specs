@@ -1,8 +1,7 @@
 *.py[cod]
 
 # Packages
-*.egg
-*.egg-info
+*.egg*
 dist
 build
 eggs
@@ -17,7 +16,6 @@ pip-log.txt
 # Unit test / coverage reports
 .tox
 nosetests.xml
-.testrepository
 
 # Mr Developer
 .mr.developer.cfg
