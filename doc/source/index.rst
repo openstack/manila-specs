@@ -120,7 +120,7 @@ and accepted, but have not been implemented in the cycle
 that they were targeted for. The original assignee/s
 may have stepped away. New contributors are welcome to
 pick any of these up and complete them. Please contact the
-original assignee or ask on freenode's #openstack-manila
+original assignee or ask on OFTC #openstack-manila
 channel to proceed.
 
 .. toctree::
