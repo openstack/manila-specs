@@ -15,6 +15,16 @@ These specifications can be implemented over multiple releases.
 
    specs/release_independent/*
 
+Yoga approved specs
+===================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/yoga/*
+
+
 Xena approved specs
 ===================
 
