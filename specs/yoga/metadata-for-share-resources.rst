@@ -29,15 +29,19 @@ Problem description
 End users interact with manila API to manage their shared file system storage
 resources. These resources include:
 
-- Shares
-- Snapshots
-- Export Locations
-- Share Replicas
-- Share Groups
-- Share Group Snapshots
-- Security Services
-- Share Networks
-- Share Network Subnets
+ - Shares
+ - Share Export Locations
+ - Share Access Rules
+ - Share Instances
+ - Share Instance Export Locations
+ - Share Replicas
+ - Share Replica Export Locations
+ - Share Snapshots
+ - Share Groups
+ - Share Group Snapshots
+ - Security Services
+ - Share Networks
+ - Share Network Subnets
 
 All of these resources are identifiable by ID. Some of them even allow setting
 free form text as Name and/or Description. Free form text is usually hard to
@@ -86,10 +90,9 @@ implement API handler code to:
 - set a single resource metadata item (update a specific key=value pair)
 - unset resource metadata item (delete a specific key=value pair)
 
-To distinguish and protect service owned metadata, all metadata tables will
-include an attribute named ``user_modifiable``. This attribute will
-determine if users have the ability to manipulate (or delete)
-the specific metadatum.
+To distinguish and protect service owned or admin only metadata,
+there will be an ignore_keys parameter and ignored keys dictionary
+to prevent these metadata items from being manipulated by the end user.
 
 Alternatives
 ------------
@@ -125,32 +128,30 @@ necessary. These tables will be created during a database upgrade, and
 nullified and destroyed during a database downgrade.
 
 Existing metadata tables for Shares ("share_metadata"), Export Locations
-("share_instance_export_locations_metadata") and Share Access
-Rules ("share_access_rules_metadata") will be modified to include a boolean
-attribute called ``user_modifiable``. The default value for this attribute is
-set to True. All existing export location metadata will have this attribute
-set to False during the database upgrade step. This is because we expect no
-end user created metadata on export locations yet.
+("share_instance_export_locations_metadata") will be modified to include
+a string attribute called ``deleted``. The default value for this attribute is
+set to False.
 
 Existing metadata tables will also be modified to replace the datatype of
-the "id" field to uuids. This will be done to avoid integer overflows and
-provide scalability.
+the "id" field to a string of length 36 for UUIDs. This will be done to
+avoid integer overflows and provide scalability.
 
-A general ORM schema for a metadata table will be as follows::
+A general ORM schema for a metadata table will be as follows
+(where 'Resource' is a stand-in for the real resource name)::
 
   class ResourceMetadata(BASE, ManilaBase):
-    """Represents a metadata key/value pair for a resource."""
+    """Represents a metadata key/value pair for a Resource."""
     __tablename__ = 'resource_metadata'
     id = Column(String(36), primary_key=True)
     key = Column(String(255), nullable=False)
     value = Column(String(1023), nullable=False)
     resource_id = Column(String(36), ForeignKey('resources.id'), nullable=False)
-    user_modifiable = Column(Boolean, default=True)
+    deleted = Column(String(36), default='False')
     resource = orm.relationship(Resource, backref="resource_metadata",
                                 foreign_keys=resource_id,
                                 primaryjoin='and_('
                                 'ResourceMetadata.resource_id == Resource.id,'
-                                'ResourceMetadata.deleted == 0)')
+                                'ResourceMetadata.deleted == "False)')
 
 
 Metadata items are not soft deleted when they are unset by the service or by
@@ -161,12 +162,13 @@ resource has been requested.
 REST API impact
 ---------------
 
-New API endpoints will be created to get metadata, set metadata, unset a
-metadata item, delete all metadata for each resource. The general structure of
-these APIs is as follows:
+New API endpoints will be created to index metadata, show metadata item,
+create metadata, update metadata item, update_all metadata (delete
+all existing metadata and update with requested metadata), and delete metadata
+item for each resource. The general structure of these APIs is as follows:
 
-Get all Metadata
-^^^^^^^^^^^^^^^^
+Index Metadata
+^^^^^^^^^^^^^^^
 
 Retrieve all metadata key=value pairs as JSON::
 
@@ -186,8 +188,28 @@ Retrieve all metadata key=value pairs as JSON::
        }
     }
 
-Set/Unset all metadata
-^^^^^^^^^^^^^^^^^^^^^^
+Show specific metadata item
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Retrieve a single metadata key=value pair::
+
+  GET /v2/{resource}/metadata/{key}
+
+- *Sample request body*: null
+- *Success Codes*: 200
+- *Default API policy role*: Project Reader
+- *Error Codes*: 401 (Unauthorized), 403 (Policy Not Authorized), 404
+  (Invalid resource)
+- *Sample response body*::
+
+    {
+       "metadata": {
+           "project": "my_app",
+       }
+    }
+
+Update all metadata
+^^^^^^^^^^^^^^^^^^^
 
 Replace all metadata with the updated set, can also be used to delete all
 metadata::
@@ -217,10 +239,14 @@ metadata::
        }
     }
 
-Set specific metadata item/s
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*Note:* Metadata keys that are part of the admin-only dictionary will
+not be deleted and updated if the user requesting this is not an
+system or project admin.
 
-Update one or more specific metadata items, leaving the rest unmodified::
+Update specific metadata item
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Update a specific metadata item, leaving the rest unmodified::
 
   POST /v2/{resource}/metadata/{key}
 
@@ -251,8 +277,7 @@ Update one or more specific metadata items, leaving the rest unmodified::
    Currently, the ``POST /v2/{share}/metadata`` API currently expects a
    ``meta`` object. However, the other metadata APIs expect a ``metadata``
    object. For the sake of consistency, this error will be fixed in a new
-   API microversion. However, use of ``meta`` will be honored for this API even
-   after the new microversion.
+   API microversion.
 
 Delete specific metadata item
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -302,12 +327,12 @@ Other end user impact
 ---------------------
 
 Python-manilaclient SDK will include support for the new APIs and we'll
-ensure that there are corresponding CLI commands in manilaclient shell as
-well as the new OSC plugin shell. Manila UI's support for share, export
-location and access rule metadata is limited. This specification doesn't
-seek to address all the UI gaps; but all effort will be made to close the
-feature parity between the CLI utilities and the UI. Eventually users will
-be able to perform all metadata interactions via the UI as well.
+ensure that there are corresponding CLI commands in the new OSC plugin
+shell. Manila UI's support for share, export location and access rule
+metadata is limited. This specification doesn't seek to address all the
+UI gaps; but all effort will be made to close the feature parity between
+the CLI utilities and the UI. Eventually users will be able to perform
+all metadata interactions via the UI as well.
 
 
 Performance Impact
@@ -341,10 +366,10 @@ Assignee(s)
 -----------
 
 Primary assignee:
-  gouthamr
+  ashrod98 <ashrod98@gmail.com>
 
 Other contributors:
-  None
+  gouthamr
 
 Work Items
 ----------
@@ -352,20 +377,33 @@ Work Items
 - Add database migration to convert the ``id`` field of  share, export
   location and access rule metadata to a string from integer and populate
   the field with UUIDs
-- Add database migrations to introduce the "user_modifiable" field to share,
+- Add database migrations to introduce the "deleted" field to share,
   export location and access rule metadata tables.
 - Add database migrations to create new metadata tables for all other resources
 - Add ``MetadataControllerMixin``, inherit and extend in all resources and
   bump up the API microversion.
 - Add unit and integration tests
-- Add support for metadata APIs in manilaclient SDK, manilaclient shell and OSC
+- Add support for metadata APIs in manilaclient SDK, and OSC CLI and SDK
 - Add support for metadata interactions in the UI
 - Add documentation
+
+A further enhancement to this API would be to provide an interface
+for administrators to create admin-only metadata values. Currently,
+admin-only metadata values are delinated in a dictionary in
+manila/manila/common/constants.py. Such a fixated list is sufficient for
+the implementation of backend filtering for scheduling according to share
+affinities. To implement this customization, we could revisit adjusting
+the data-model to include an admin-only boolean value identifying
+which keys are adjustable by admins or non-admins. Or we could provide
+some configuration option in manila/manila/data/. Such an enhancement
+requires further thought, and can be implemented at a later point.
 
 Dependencies
 ============
 
-None
+Not a direct dependency, but this API change incorporates the metadata
+changes necessary to implement this spec: `Affinity and anti-affinity
+scheduler filter <https://specs.openstack.org/openstack/manila-specs/specs/xena/affinity-antiaffinity-filter.html>`_
 
 
 Testing
