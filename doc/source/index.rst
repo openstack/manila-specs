@@ -15,6 +15,16 @@ These specifications can be implemented over multiple releases.
 
    specs/release_independent/*
 
+Bobcat approved specs
+=====================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/bobcat/*
+
+
 Antelope approved specs
 =======================
 
