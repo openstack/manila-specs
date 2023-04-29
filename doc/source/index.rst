@@ -15,8 +15,8 @@ These specifications can be implemented over multiple releases.
 
    specs/release_independent/*
 
-Bobcat approved specs
-=====================
+2023.2 Bobcat approved specs
+============================
 
 .. toctree::
    :glob:
@@ -25,8 +25,9 @@ Bobcat approved specs
    specs/bobcat/*
 
 
-Antelope approved specs
-=======================
+
+2023.1 Antelope approved specs
+==============================
 
 .. toctree::
    :glob:
