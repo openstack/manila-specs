@@ -25,7 +25,6 @@ These specifications can be implemented over multiple releases.
    specs/bobcat/*
 
 
-
 2023.1 Antelope approved specs
 ==============================
 

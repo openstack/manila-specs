@@ -228,6 +228,7 @@ Response example::
         }
     }
 
+.. _update-resource-locks:
 
 **Delete a resource lock**::
 
