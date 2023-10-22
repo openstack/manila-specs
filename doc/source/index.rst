@@ -16,6 +16,16 @@ These specifications can be implemented over multiple releases.
    specs/release_independent/*
 
 
+2024.2 Dalmatian approved specs
+===============================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/dalmatian/*
+
+
 2024.1 Caracal approved specs
 =============================
 
