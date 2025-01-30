@@ -16,6 +16,16 @@ These specifications can be implemented over multiple releases.
    specs/release_independent/*
 
 
+2025.2 Flamingo approved specs
+==============================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/flamingo/*
+
+
 2024.2 Dalmatian approved specs
 ===============================
 
