@@ -77,6 +77,8 @@ Here is list of scenarios for implementation:
 * `10) Replicate and promote ‘dr’ share and write data`_ `(Not yet implemented)`
 * `11) Get a snapshot of a replicated share`_ `(Not yet implemented)`
 * `12) Migrate share and write data`_ `(Implemented)`
+* `13) Mount share through VirtioFS`_ `(Not yet implemented)`
+* `14) Mount multiple shares through VirtioFS`_ `(Not yet implemented)`
 
 _`1) Share access and file operations`
 
@@ -1114,6 +1116,228 @@ _`12) Migrate share and write data`
    * - 13
      - Delete UVM
      - ok, deleted
+
+_`13) Mount share through VirtioFS`
+
+`Driver mode: any`
+
+`Involved APIs:`
+
+* [create share network]
+* [create share type]
+* create share
+* create VM
+* share attachment
+* resource locks
+* delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case is yet to be implemented.
+
+.. list-table:: **Scenario 13 steps**
+   :class: table-striped
+   :stub-columns: 1
+   :widths: 3 25 25
+   :header-rows: 1
+
+   * - Step
+     - Action
+     - Result
+   * - 1
+     - Create user VM (UVM)
+     - ok, created
+   * -  2
+     - Create share (S)
+     - ok, created
+   * - 3
+     - SSH to UVM
+     - ok, connected
+   * - 4
+     - Try mount S to UVM
+     - fail, access denied
+   * - 5
+     - Shut UVM off
+     - ok, shut off
+   * - 6
+     - Attach S to UVM
+     - ok, attached
+   * - 7
+     - Turn UVM on
+     - ok, active
+   * - 8
+     - List UVM's attachments
+     - ok, share listed as an attachment
+   * - 9
+     - List S resource locks
+     - ok, locks in place
+   * - 10
+     - List access rule resource locks
+     - ok, locks in place
+   * - 11
+     - Show access rule `access_to` added to S using (non-admin user)
+     - fail, access rule visibility is locked
+   * - 12
+     - SSH to UVM
+     - ok, connected
+   * - 13
+     - Try mount S to UVM
+     - ok, mounted
+   * - 14
+     - Try write files to S
+     - ok, written
+   * - 15
+     - Try read files from S
+     - ok, read
+   * - 16
+     - Try delete files on S
+     - ok, deleted
+   * - 17
+     - Try to delete S using (non-admin user)
+     - fail, share is locked
+   * - 18
+     - Attempt deleting access rule granted to S with non-admin user
+     - fail, access rule deletion is locked
+   * - 19
+     - Attempt deleting access rule granted to S admin user without unrestricting
+     - fail, access rule deletion is locked
+   * - 20
+     - Shut UVM off
+     - ok, shut off
+   * - 21
+     - Detach S from UVM
+     - ok, detached
+   * - 22
+     - Turn UVM on
+     - ok, active
+   * - 23
+     - List S resource locks
+     - ok, lock deleted
+   * - 24
+     - List access rule resource locks
+     - ok, lock deleted
+   * - 25
+     - Delete S
+     - ok, deleted
+   * - 26
+     - Delete UVM
+     - ok, deleted
+
+_`14) Mount multiple shares through VirtioFS`
+
+`Driver mode: any`
+
+`Involved APIs:`
+
+* [create share network]
+* [create share type]
+* create share
+* create VM
+* share attachment
+* delete share
+
+.. note::
+
+    **Implementation Status**
+
+    This test case is yet to be implemented.
+
+.. list-table:: **Scenario 14 steps**
+   :class: table-striped
+   :stub-columns: 1
+   :widths: 3 25 25
+   :header-rows: 1
+
+   * - Step
+     - Action
+     - Result
+   * - 1
+     - Create user VM (UVM1)
+     - ok, created
+   * - 2
+     - Create user VM (UVM2)
+     - ok, created
+   * - 3
+     - Create share (S)
+     - ok, created
+   * - 4
+     - Shut UVM1 off
+     - ok, shut off
+   * - 5
+     - Attach S to UVM1
+     - ok, attached
+   * - 6
+     - Turn UVM1 on
+     - ok, active
+   * - 7
+     - List UVM1's attachments
+     - ok, share listed as an attachment
+   * - 8
+     - SSH to UVM1
+     - ok, connected
+   * - 9
+     - Try mount S to UVM1
+     - ok, mount succeeded
+   * - 10
+     - Try write files to S
+     - ok, written
+   * - 11
+     - SSH to UVM2
+     - ok, connected
+   * - 12
+     - Try mount S
+     - fail, access denied
+   * - 13
+     - Shut UVM2 off
+     - ok, shut off
+   * - 14
+     - Attach S to UVM2
+     - ok, attached
+   * - 15
+     - Turn UVM2 on
+     - ok, active
+   * - 16
+     - List UVM2's attachments
+     - ok, share listed as an attachment
+   * - 17
+     - SSH to UVM2
+     - ok, connected
+   * - 18
+     - Try write files to S on UVM2
+     - ok, written
+   * - 19
+     - Shut UVM1 off
+     - ok, shut off
+   * - 20
+     - Detach share from UVM1
+     - ok, detached
+   * - 21
+     - Turn UVM1 on
+     - ok, active
+   * - 22
+     - Try write files to S on UVM2
+     - ok, written
+   * - 23
+     - Shut UVM2 off
+     - ok, shut off
+   * - 24
+     - Detach share from UVM2
+     - ok, detached
+   * - 25
+     - Turn UVM2 on
+     - ok, active
+   * - 26
+     - Delete S
+     - ok, deleted
+   * - 27
+     - Delete UVM1
+     - ok, deleted
+   * - 28
+     - Delete UVM2
+     - ok, deleted
+
 
 Alternatives
 ------------
