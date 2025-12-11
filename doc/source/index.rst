@@ -16,6 +16,16 @@ These specifications can be implemented over multiple releases.
    specs/release_independent/*
 
 
+2026.1 Gazpacho approved specs
+==============================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/gazpacho/*
+
+
 2025.2 Flamingo approved specs
 ==============================
 
