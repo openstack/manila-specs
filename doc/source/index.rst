@@ -16,6 +16,16 @@ These specifications can be implemented over multiple releases.
    specs/release_independent/*
 
 
+2026.2 Hibiscus approved specs
+==============================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/hibiscus/*
+
+
 2026.1 Gazpacho approved specs
 ==============================
 
