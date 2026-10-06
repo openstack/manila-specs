@@ -16,6 +16,16 @@ These specifications can be implemented over multiple releases.
    specs/release_independent/*
 
 
+2027.1 Indri approved specs
+===========================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/indri/*
+
+
 2026.2 Hibiscus approved specs
 ==============================
 
